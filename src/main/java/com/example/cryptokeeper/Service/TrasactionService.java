@@ -38,6 +38,10 @@ public class TrasactionService {
         Wallet wallet = walletRepository.findById(user.getWallet().getId())
                 .orElseThrow(() -> new RuntimeException("Wallet not found"));
 
+        if (wallet == null) {
+            throw new RuntimeException("User does not have a wallet");
+        }
+
         CryptoCurrency cryptoCurrency = cryptoCurrencyRepository.findById(Optional.of(transaction.getCryptoCurrency().getId())
                 .orElseThrow(() -> new RuntimeException("CryptoCurrency not found"))).orElseThrow(() -> new RuntimeException("CryptoCurrency not found"));
 
